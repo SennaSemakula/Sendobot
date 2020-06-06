@@ -4,3 +4,6 @@ Email bot that periodically sends stock market tech, mergers and acquisitions al
 
 Pre-requisites:
 - Python3.7
+
+Newsletter example:
+![alt text](https://github.com/SennaSemakula/Sendobot/blob/master/resources/newslettter.png)
