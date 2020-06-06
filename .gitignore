@@ -128,6 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# Mailing list
+mailing_list.py
+
 # Sendobot artefacts
 tech_news.txt
 merger_news.txt
