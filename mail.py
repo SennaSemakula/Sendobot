@@ -27,12 +27,8 @@ def create_todos(todos):
     return todo_format
 
 def read_file(category):
-    if category == "tech":
-        with open("tech_news.txt", "r") as f_obj:
-            return f_obj.read().strip().encode('ascii', 'ignore').decode('ascii')
-    elif category == "merger":
-        with open("merger_news.txt", "r") as f_obj:
-            return f_obj.read().strip().encode('ascii', 'ignore').decode('ascii')
+    with open(f"{category}_news.txt", "r") as f_obj:
+        return f_obj.read().strip().encode('ascii', 'ignore').decode('ascii')
 
 def create_body(category):
     contents = ""
