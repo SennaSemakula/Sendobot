@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.7
 import time
 import json
 import requests
@@ -41,8 +41,8 @@ async def main():
     merger_articles = await fetch_mergers
 
     def generate_files():
-        write_file("tech_news.txt", tech_articles)
-        write_file("merger_news.txt", merger_articles)
+        write_file("/home/ubuntu/Sendobot/tech_news.txt", tech_articles)
+        write_file("/home/ubuntu/Sendobot/merger_news.txt", merger_articles)
 
     generate_files()
 
@@ -66,13 +66,13 @@ async def fetch_merger_news(url, category='merger'):
     return resp
 
 def write_file(filename, arr):
-    header = filename.split("_")[0]
+    header = filename.split("/")[-1].split("_")[0]
     with open(filename, "w+") as f_obj:
         f_obj.write(f'{header.upper()} News:\n\n')
         for article in arr:
             f_obj.write(f"""Headline: {article['headline']}\n
 Link: {article['url']}\n
-Date: {datetime.fromtimestamp(article['datetime'])}\n\n
+Date: {datetime.fromtimestamp(article['datetime'])}\n
 """)
 
 if __name__ == '__main__':
