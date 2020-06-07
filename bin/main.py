@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.7
+import os
 import time
 import json
 import requests
@@ -10,6 +11,8 @@ from pprint import pprint
 from config import FINNHUB_TOKEN as TOKEN, API, NEWS_API_KEY
 
 SOURCES = "https://newsapi.org/v2/sources"
+
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 
 class Session:
     def __init__(self):
@@ -43,8 +46,8 @@ async def main():
     tech_articles = await tech_news
 
     def generate_files():
-        write_file("tech_news.txt", tech_articles)
-        # write_file("merger_news.txt", merger_articles)
+        write_file(f"{DIR_PATH}/tech_news.txt", tech_articles)
+        write_file(f"{DIR_PATH}/merger_news.txt", merger_articles)
 
     generate_files()
 

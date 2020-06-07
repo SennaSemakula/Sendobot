@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3.7
+import os
 from random import choice
 from smtplib import SMTP_SSL
 from datetime import date, datetime
@@ -7,6 +8,7 @@ from mailing_list import MAILING_LIST
 from quotes import QUOTES
 from email.mime.text import MIMEText
 
+DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 RECIPIENTS=MAILING_LIST
 weekday = datetime.today().weekday()
 random_choice = choice([x for x in range(0, len(QUOTES)) if x not in [weekday - 1, weekday - 2]])
@@ -32,7 +34,7 @@ def create_todos(todos):
     return todo_format
 
 def read_file(category):
-    with open(f"{category}_news.txt", "r") as f_obj:
+    with open(f"{DIR_PATH}/{category}_news.txt", "r") as f_obj:
         return f_obj.read().strip().encode('ascii', 'ignore').decode('ascii')
 
 def create_body(category, list_todos=""):
