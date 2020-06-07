@@ -1,10 +1,15 @@
 #!/usr/bin/env python
+from random import choice
 from smtplib import SMTP_SSL
-from datetime import date
+from datetime import date, datetime
 from config import USER_EMAIL, TOKEN
 from mailing_list import MAILING_LIST
+from quotes import QUOTES
 
 RECIPIENTS=MAILING_LIST
+weekday = datetime.today().weekday()
+random_choice = choice([x for x in range(0, len(QUOTES)) if x not in [weekday - 1, weekday - 2]])
+quote = QUOTES[random_choice]
 
 TODO_LIST_TECH = [
     "Recap Evernote life notes", "Read tech articles", "Play around with AWS free tier",
@@ -23,7 +28,6 @@ def create_todos(todos):
     todo_format = f"TODO: ({today})\n"
     for note in todos:
         todo_format += f"* {note}\n"
-
     return todo_format
 
 def read_file(category):
@@ -32,7 +36,7 @@ def read_file(category):
 
 def create_body(category, list_todos=""):
     contents = ""
-    contents += " \"We have two lives and the second one begins when we realise we only have one - Conficious\"\n\n"
+    contents += f"  \"{quote}\"\n\n"
     contents += f'{list_todos}\n'
     contents += read_file(category)
     subject=f"Sendobot {category.title()} Newsletter"
