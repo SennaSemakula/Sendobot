@@ -129,8 +129,9 @@ dmypy.json
 .pyre/
 
 # Mailing list
-mailing_list.py
+bin/mailing_list.py
+bin/config.py
 
 # Sendobot artefacts
-tech_news.txt
-merger_news.txt
+bin/tech_news.txt
+bin/merger_news.txt
