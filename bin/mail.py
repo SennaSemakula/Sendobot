@@ -5,6 +5,7 @@ from datetime import date, datetime
 from config import USER_EMAIL, TOKEN
 from mailing_list import MAILING_LIST
 from quotes import QUOTES
+from email.mime.text import MIMEText
 
 RECIPIENTS=MAILING_LIST
 weekday = datetime.today().weekday()
@@ -36,18 +37,22 @@ def read_file(category):
 
 def create_body(category, list_todos=""):
     contents = ""
-    contents += f"  \"{quote}\"\n\n"
-    contents += f'{list_todos}\n'
+    contents += f"  \"<i><strong>{quote}</strong></i><br>"
+    contents += f'<br>{list_todos}\n'
     contents += read_file(category)
     subject=f"Sendobot {category.title()} Newsletter"
     email_text = f"""\
-From: {USER_EMAIL}
-To: {RECIPIENTS}
-Subject: {subject}
-
+<html>
+<head>
+<meta charset=“UTF-8”>
+</head>
+<body>
 {contents}
+From,<br>
+<strong>Sendoka Bot</strong> <span style="font-size:30px">&#x1F916;</span>
+</body>
+</html>
 
-From Sendoka bot :)
 """.format(todos=list_todos)
     return email_text
 
@@ -61,13 +66,15 @@ def main():
             for i, recipient in enumerate(RECIPIENTS):
                 if i == 0:
                     tech_body = create_body("tech", todos)
-                    merger_body = create_body("merger", "")
-                    smtp.sendmail(USER_EMAIL, recipient, merger_body)
-                    print(f"Merger & Acquisitions news mail sent to: {recipient}")
+                    # merger_body = create_body("merger", "")
+                    # smtp.sendmail(USER_EMAIL, recipient, merger_body)
+                    # print(f"Merger & Acquisitions news mail sent to: {recipient}")
                 else:
                     tech_body = create_body("tech", "")
-
-                smtp.sendmail(USER_EMAIL, recipient, tech_body)
+                msg = MIMEText(tech_body, 'html')
+                msg['Subject'] = 'Daily Tech News From Senna'
+                msg['from'] = USER_EMAIL
+                smtp.sendmail(USER_EMAIL, recipient, msg.as_string())
                 print(f"Tech news mail sent to: {recipient}")
     except Exception as e:
         print(e)
