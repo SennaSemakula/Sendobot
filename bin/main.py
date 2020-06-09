@@ -47,7 +47,7 @@ async def main():
 
     def generate_files():
         write_file(f"{DIR_PATH}/tech_news.txt", tech_articles)
-        write_file(f"{DIR_PATH}/merger_news.txt", merger_articles)
+        #write_file(f"{DIR_PATH}/merger_news.txt", merger_articles)
 
     generate_files()
 
